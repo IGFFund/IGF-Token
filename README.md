@@ -1,5 +1,13 @@
 # IGF-Token
 Universal index of the fund investing in blockchain technology.
+https://igf.fund
+Standard: ERC-20
+Symbol:	IGF
+Decimals:	8
+Contract:	0xEBed6DA3e9355F1AA402f976C054DB7bc16Be7E0
+Total Supply:	10 000 000 IGF
+Circulating Supply:	1 200 000 IGF
+
 
 IGF Fund Strategy – The Basis of the IGF Token
 
