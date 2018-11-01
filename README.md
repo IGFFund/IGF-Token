@@ -38,3 +38,15 @@ The Fund has Stabilization Fund created to ensure the most stable operation of t
 Bonus program
 
 All Investors are invited to participate in the Fund's bonus program. As part of the bonus program, every Investor who can attract a new Investor to the Fund will be able to additionally receive 10% of the Profit, which will be credited to the funds that will be invested in the Fund by the Investor attracted by him. The program applies only to those Tokens that are purchased for the Ethereum in the IGF Personal Account and do not apply to tokens that are acquired from other Investors on the stock exchange or in any other way.
+
+Confidentiality
+
+Any information forwarded to the Issuer by a potential Token purchaser will be treated on a confidential basis. If required to do so by law or regulation, the Issuer may pass on that information to a relevant third party. By applying to purchase Tokens, each purchaser is deemed to have consented to such release of confidential information.
+
+Risks
+
+A purchase of Tokens carries substantial risk. There can be no assurance that the investment objective of the Fund, as defined herein, will be achieved, and results may vary substantially over time.
+
+The value of Tokens may go down as well as up, and Token purchasers may not get back the amount spent for Tokens. A purchase of Tokens is only suitable for sophisticated Tokenholders who are able to bear the loss of a substantial portion or even all of their investment. A purchase of Tokens is not intended to be a complete investment program for any investor. Presently, there is no public market for the Tokens and no market may ever exist for such Tokens.
+
+Potential Token purchasers should carefully consider the risk factors set out in the “Supplemental Risk Disclosure” attached hereto when considering whether a purchase of Tokens is suitable for them in light of their circumstances and financial resources. Potential Token purchasers are advised to seek independent professional advice on the implications of purchasing Tokens.
