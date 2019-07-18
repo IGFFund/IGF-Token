@@ -9,11 +9,11 @@ Symbol:	IGF
 
 Decimals:	8
 
-Contract:	0xEBed6DA3e9355F1AA402f976C054DB7bc16Be7E0
+Contract:	0xA261e1facd9e90233dC08f785c2B1Fb1691024bA
 
 Total Supply:	10 000 000 IGF
 
-Circulating Supply:	1 200 000 IGF
+Circulating Supply:	1 600 000 IGF
 
 
 
