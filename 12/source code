@@ -1,6 +1,12 @@
 pragma solidity 0.4.23;
 
 /**
+ *Submitted for verification at Etherscan.io on 2019-06-12
+*/
+
+pragma solidity 0.5.2;
+
+/**
  * @title SafeMath
  * @dev Math operations with safety checks that throw on error
  */
@@ -48,7 +54,7 @@ library SafeMath {
 
 
 contract Ownable {
-    address public owner;
+    address payable public owner;
 
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -74,7 +80,7 @@ contract Ownable {
      * @dev Allows the current owner to transfer control of the contract to a newOwner.
      * @param newOwner The address to transfer ownership to.
      */
-    function transferOwnership(address newOwner) external onlyOwner {
+    function transferOwnership(address payable newOwner) external onlyOwner {
         require(newOwner != address(0));
         emit OwnershipTransferred(owner, newOwner);
         owner = newOwner;
@@ -175,15 +181,15 @@ using SafeMath for uint256;
         cap = _cap;
     }
 
-    bytes32 public constant name = "IGFToken";
+    string public constant name = "IGFToken";
 
-    bytes3 public constant symbol = "IGF";
+    string public constant symbol = "IGF";
 
     uint8 public constant decimals = 8;
-
+    
     uint256 public cap;
 
-    bool internal mintingFinished;
+    bool public mintingFinished;
 
     event Transfer(address indexed from, address indexed to, uint256 value);
 
@@ -200,17 +206,17 @@ using SafeMath for uint256;
         _;
     }
 
-    function getName() view public returns(bytes32)
+    function getName() pure public returns(string memory)
     {
         return name;
     }
 
-    function getSymbol() view public returns(bytes3)
+    function getSymbol() pure public returns(string memory)
     {
         return symbol;
     }
 
-    function getTokenDecimals() view public returns(uint256)
+    function getTokenDecimals() pure public returns(uint256)
     {
         return decimals;
     }
@@ -260,7 +266,7 @@ using SafeMath for uint256;
      * @param _value The amount to be transferred.
     */
 
-    function transfer(address _to, uint256 _value) external{
+    function transfer(address _to, uint256 _value) public returns (bool){
         require(msg.sender!=_to);
         require(_value <= balanceOf(msg.sender));
 
@@ -269,6 +275,7 @@ using SafeMath for uint256;
         setBalanceOf(_to, balanceOf(_to).add(_value));
 
         emit Transfer(msg.sender, _to, _value);
+        return true;
     }
 
     /**
@@ -277,13 +284,14 @@ using SafeMath for uint256;
      * @param _to address The address which you want to transfer to
      * @param _value uint256 the amount of tokens to be transferred
      */
-    function transferFrom(address _from, address _to, uint256 _value) external {
+    function transferFrom(address _from, address _to, uint256 _value) public returns(bool) {
         require(_value <= balanceOf(_from));
         require(_value <= allowance(_from,_to));
         setBalanceOf(_from, balanceOf(_from).sub(_value));
         setBalanceOf(_to, balanceOf(_to).add(_value));
         setAllowance(_from,_to,allowance(_from,_to).sub(_value));
         emit Transfer(_from, _to, _value);
+        return true;
     }
 
     /**
@@ -293,14 +301,13 @@ using SafeMath for uint256;
  * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
  * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
  * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
- * @param _owner The address of the owner which allows tokens to a spender
  * @param _spender The address which will spend the funds.
  * @param _value The amount of tokens to be spent.
  */
-    function approve(address _owner,address _spender, uint256 _value) external {
-        require(msg.sender ==_owner);
+    function approve(address _spender, uint256 _value) public returns(bool) {
         setAllowance(msg.sender,_spender, _value);
         emit Approval(msg.sender, _spender, _value);
+        return true;
     }
 
 
@@ -311,14 +318,12 @@ using SafeMath for uint256;
      * allowed value is better to use this function to avoid 2 calls (and wait until
      * the first transaction is mined)
      * From MonolithDAO Token.sol
-     * @param _owner The address of the owner which allows tokens to a spender
      * @param _spender The address which will spend the funds.
      * @param _addedValue The amount of tokens to increase the allowance by.
      */
-    function increaseApproval(address _owner, address _spender, uint _addedValue) external{
-        require(msg.sender==_owner);
-        setAllowance(_owner,_spender,allowance(_owner,_spender).add(_addedValue));
-        emit Approval(_owner, _spender, allowance(_owner,_spender));
+    function increaseApproval(address _spender, uint _addedValue) external{
+        setAllowance(msg.sender,_spender,allowance(msg.sender,_spender).add(_addedValue));
+        emit Approval(msg.sender, _spender, allowance(msg.sender,_spender));
     }
 
     /**
@@ -328,20 +333,17 @@ using SafeMath for uint256;
      * allowed value is better to use this function to avoid 2 calls (and wait until
      * the first transaction is mined)
      * From MonolithDAO Token.sol
-     * @param _owner The address of the owner which allows tokens to a spender
      * @param _spender The address which will spend the funds.
      * @param _subtractedValue The amount of tokens to decrease the allowance by.
      */
-    function decreaseApproval(address _owner,address _spender, uint _subtractedValue) external{
-        require(msg.sender==_owner);
-
-        uint oldValue = allowance(_owner,_spender);
+    function decreaseApproval(address _spender, uint _subtractedValue) external{
+        uint oldValue = allowance(msg.sender,_spender);
         if (_subtractedValue > oldValue) {
-            setAllowance(_owner,_spender, 0);
+            setAllowance(msg.sender,_spender, 0);
         } else {
-            setAllowance(_owner,_spender, oldValue.sub(_subtractedValue));
+            setAllowance(msg.sender,_spender, oldValue.sub(_subtractedValue));
         }
-        emit Approval(_owner, _spender, allowance(_owner,_spender));
+        emit Approval(msg.sender, _spender, allowance(msg.sender,_spender));
     }
 
     /**
@@ -457,7 +459,7 @@ using SafeMath for uint256;
         return address(this).balance;
     }
 
-    function getOwner() view internal returns(address)
+    function getOwner() view internal returns(address payable)
     {
         return owner;
     }
@@ -484,7 +486,7 @@ using SafeMath for uint256;
         return address(this).balance;
     }
 
-    function payDividends(address beneficiary,uint256 amount) external onlyOwner returns(bool)
+    function payDividends(address payable beneficiary,uint256 amount) external onlyOwner returns(bool)
     {
         require(amount > 0);
         validBeneficiary(beneficiary);
